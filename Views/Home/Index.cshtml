@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Calculator";
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Simple Calculator using HTML, CSS and JavaScript</title>
+    <link rel="stylesheet" href="~/css/site.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <table class="calculator">
+            <tr>
+                <td colspan="3"> <input class="display-box" type="text" id="Query" disabled /> </td>
+                <!-- clearScreen() function clears all the values -->
+                <td> <input type="button" value="C" onclick="clearScreen()" id="btn" /> </td>
+            </tr>
+            <tr>
+                <td colspan="3"> <input class="display-box" type="text" id="result" disabled /> </td>
+            </tr>
+            <tr>
+                <!-- display() function displays the value of clicked button -->
+                <td style="width: 20%;"> <input type="button" value="1" onclick="display('1')" /> </td>
+                <td style="width: 20%;"> <input type="button" value="2" onclick="display('2')" /> </td>
+                <td style="width: 20%;"> <input type="button" value="3" onclick="display('3')" /> </td>
+                <td style="width: 20%;"> <input type="button" value="/" onclick="display('/')" /> </td>
+            </tr>
+            <tr>
+                <td> <input type="button" value="4" onclick="display('4')" /> </td>
+                <td> <input type="button" value="5" onclick="display('5')" /> </td>
+                <td> <input type="button" value="6" onclick="display('6')" /> </td>
+                <td> <input type="button" value="-" onclick="display('-')" /> </td>
+            </tr>
+            <tr>
+                <td> <input type="button" value="7" onclick="display('7')" /> </td>
+                <td> <input type="button" value="8" onclick="display('8')" /> </td>
+                <td> <input type="button" value="9" onclick="display('9')" /> </td>
+                <td> <input type="button" value="+" onclick="display('+')" /> </td>
+            </tr>
+            <tr>
+                <td> <input type="button" value="." onclick="display('.')" /> </td>
+                <td> <input type="button" value="0" onclick="display('0')" /> </td>
+
+                <!-- calculate() function evaluates the mathematical expression -->
+                <td> <input type="button" value="Save" onclick="calculate()" id="btn" /> </td>
+                <td> <input type="button" value="*" onclick="display('*')" /> </td>
+            </tr>
+        </table>
+        <table class="calculation">
+            <tr>
+                <td style="height: 17%;position: absolute;width: 100%;top: 2%;">
+                    <input type="button" value="Clear History" onclick="DeleteAllCalculation()" id="btn" />
+                </td>
+            </tr>
+            @if (ViewBag.Calculations != null)
+            {
+                var count = 0;
+                @foreach (var Data in ViewBag.Calculations)
+                {
+                    var ViewBagLegth = ViewBag.Calculations.Count;
+                    @if (ViewBagLegth <= 5 && count <= 5)
+                    {
+
+                        <tr>
+                            <td class="History" id="@Data.Id">
+                                <input type="button" value=@(Data.Input + "=" + Data.FinalResult) id="BtnCalculation" onclick="DeleteCalculation(@Data.Id)" />
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                }
+            }            
+        </table>
+    </div>
+    <script type="text/javascript" src="~/js/site.js"></script>
+
+</body>
+
+</html>
